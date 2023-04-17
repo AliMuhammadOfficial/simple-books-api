@@ -5,7 +5,7 @@ import { protectedRoutes } from './router/routes';
 
 // eslint-disable-next-line consistent-return
 export function middleware(request: NextRequest) {
-  let val;
+  let val: any;
   const isProtectedRoute = protectedRoutes.some((route) => {
     if (typeof route === 'string') {
       val = request.nextUrl.pathname === route;

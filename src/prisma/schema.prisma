@@ -27,7 +27,7 @@ model Book {
   type         String?
   price        Float?
   currentStock Int?    @map("current-stock")
-  available    Boolean
+  available    Boolean?
   orders       Order[]
 }
 

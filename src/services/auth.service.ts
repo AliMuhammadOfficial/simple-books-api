@@ -12,17 +12,15 @@ export class AuthService {
     });
   }
 
-  login = (username: string, password: string) => {
+  login = (clientName: string, clientEmail: string) => {
     return this.instance
       .post('/api/api-client', {
-        username,
-        password,
+        clientName,
+        clientEmail,
       })
       .then((res) => {
         return {
-          clientName: res.data.userId,
           accessToken: res.data.access_token,
-          expiredAt: res.data.expiredAt,
         };
       });
   };
