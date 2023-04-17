@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model ApiClient {
+  id          String    @id @unique
+  clientEmail String    @unique
+  clientName  String?
+  expiredAt   DateTime?
+  accessToken String?
+}
+
+model Book {
+  id           String  @id @unique
+  name         String
+  author       String?
+  isbn         String?
+  type         String?
+  price        Float?
+  currentStock Int?    @map("current-stock")
+  available    Boolean
+  orders       Order[]
+}
+
+model Order {
+  id           String      @id
+  book         Book     @relation(fields: [bookId], references: [id])
+  bookId       String
+  customerName String
+  createdBy    String
+  quantity     Int
+  timestamp    DateTime
+}
